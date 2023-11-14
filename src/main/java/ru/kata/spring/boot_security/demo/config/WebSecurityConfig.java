@@ -27,7 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/admin/**", "/api/admin").hasRole("ADMIN")
                 .antMatchers("/user/**", "/api/user").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/").permitAll()
@@ -43,8 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .logoutRequestMatcher((new AntPathRequestMatcher("/logout")))
-                .logoutSuccessUrl("/login")
-                .and().csrf().disable();
+                .logoutSuccessUrl("/login");
     }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
